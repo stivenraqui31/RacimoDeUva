@@ -6,7 +6,23 @@
     --dorado-claro: #f3d06b;
     --blanco: #ffffff;
     --gris-texto: #e0d6db;
+    --card-bg: #1a0510;
+    --header-bg: rgba(26, 5, 16, 0.95);
     --sombra: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* MODO CLARO */
+body.light-mode {
+    --vino-oscuro: #f4f1ea;
+    --vino-principal: #e6dfd3;
+    --vino-medio: #dcd2c0;
+    --dorado: #9c7b15;
+    --dorado-claro: #b89320;
+    --blanco: #22181c;
+    --gris-texto: #5a4c52;
+    --card-bg: #ffffff;
+    --header-bg: rgba(244, 241, 234, 0.95);
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -21,6 +37,7 @@ body {
     background-color: var(--vino-oscuro);
     color: var(--blanco);
     line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 h1, h2, h3 {
@@ -30,7 +47,7 @@ h1, h2, h3 {
 /* BARRA SUPERIOR */
 .top-bar {
     background: linear-gradient(90deg, var(--dorado), #b58e22, var(--dorado));
-    color: var(--vino-oscuro);
+    color: #1a0510;
     text-align: center;
     padding: 8px 15px;
     font-size: 0.85rem;
@@ -44,7 +61,7 @@ h1, h2, h3 {
 
 /* ENCABEZADO Y NAVEGACIÓN */
 header {
-    background-color: rgba(26, 5, 16, 0.95);
+    background-color: var(--header-bg);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
@@ -54,6 +71,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: background-color 0.3s;
 }
 
 .logo-container {
@@ -64,8 +82,8 @@ header {
 }
 
 .logo-container img {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--dorado);
@@ -74,7 +92,7 @@ header {
 
 .logo-text h1 {
     color: var(--dorado);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     letter-spacing: 1px;
 }
 
@@ -87,7 +105,7 @@ header {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 20px;
 }
 
 nav a {
@@ -102,11 +120,38 @@ nav a:hover {
     color: var(--dorado);
 }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* BOTÓN MODO OSCURO/CLARO */
+.theme-toggle-btn {
+    background: var(--vino-medio);
+    color: var(--dorado);
+    border: 1px solid var(--dorado);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--dorado);
+    color: var(--vino-oscuro);
+}
+
 .cart-btn {
     background-color: var(--vino-medio);
     color: var(--dorado);
     border: 1px solid var(--dorado);
-    padding: 10px 18px;
+    padding: 8px 16px;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 600;
@@ -123,7 +168,7 @@ nav a:hover {
 
 .cart-count {
     background-color: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
     border-radius: 50%;
     padding: 2px 7px;
     font-size: 0.8rem;
@@ -132,7 +177,7 @@ nav a:hover {
 
 /* PORTADA / HERO */
 .hero {
-    background: linear-gradient(rgba(26, 5, 16, 0.75), rgba(26, 5, 16, 0.9)), 
+    background: linear-gradient(rgba(26, 5, 16, 0.8), rgba(26, 5, 16, 0.92)), 
                 url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
     min-height: 80vh;
     display: flex;
@@ -140,13 +185,13 @@ nav a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px 20px;
+    padding: 50px 20px;
     border-bottom: 2px solid var(--dorado);
 }
 
 .hero-logo {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid var(--dorado);
@@ -155,7 +200,7 @@ nav a:hover {
 }
 
 .hero h2 {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     color: var(--dorado);
     margin-bottom: 10px;
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
@@ -163,28 +208,34 @@ nav a:hover {
 
 .hero p {
     max-width: 750px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--gris-texto);
     margin-bottom: 30px;
 }
 
 .hero-badges {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 30px;
 }
 
 .badge {
-    background: rgba(59, 10, 34, 0.8);
+    background: rgba(59, 10, 34, 0.85);
     border: 1px solid var(--dorado);
-    padding: 10px 20px;
+    padding: 8px 18px;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #fff;
+}
+
+body.light-mode .badge {
+    background: rgba(220, 210, 192, 0.9);
+    color: #22181c;
 }
 
 .badge i {
@@ -193,7 +244,7 @@ nav a:hover {
 
 .btn-primary {
     background: linear-gradient(135deg, var(--dorado), #b58e22);
-    color: var(--vino-oscuro);
+    color: #1a0510;
     padding: 14px 32px;
     border-radius: 30px;
     text-decoration: none;
@@ -216,6 +267,7 @@ nav a:hover {
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     align-items: center;
+    transition: background-color 0.3s;
 }
 
 .about-text h2 {
@@ -238,15 +290,20 @@ nav a:hover {
 }
 
 .feature-item {
-    background: rgba(26, 5, 16, 0.6);
+    background: var(--card-bg);
     padding: 15px;
     border-radius: 10px;
     border-left: 3px solid var(--dorado);
+    box-shadow: var(--sombra);
 }
 
 .feature-item h4 {
     color: var(--dorado);
     margin-bottom: 5px;
+}
+
+.feature-item p {
+    font-size: 0.85rem;
 }
 
 .about-images-grid {
@@ -293,10 +350,11 @@ nav a:hover {
 
 .category-block {
     margin-bottom: 65px;
-    background: rgba(59, 10, 34, 0.4);
+    background: var(--vino-principal);
     padding: 30px;
     border-radius: 20px;
     border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: var(--sombra);
 }
 
 .category-header {
@@ -311,7 +369,7 @@ nav a:hover {
 }
 
 .category-header h3 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--dorado);
     display: flex;
     align-items: center;
@@ -325,7 +383,7 @@ nav a:hover {
 }
 
 .filter-btn {
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     color: var(--blanco);
     border: 1px solid var(--dorado);
     padding: 6px 16px;
@@ -337,7 +395,7 @@ nav a:hover {
 
 .filter-btn.active, .filter-btn:hover {
     background: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
     font-weight: 600;
 }
 
@@ -347,20 +405,20 @@ nav a:hover {
 }
 
 .ctrl-btn {
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     color: var(--dorado);
     border: 1px solid var(--dorado);
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.3s;
 }
 
 .ctrl-btn:hover {
     background: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
 }
 
 .carousel-track {
@@ -385,13 +443,14 @@ nav a:hover {
 .product-card {
     min-width: 270px;
     max-width: 270px;
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 15px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s, border-color 0.3s;
+    box-shadow: var(--sombra);
 }
 
 .product-card:hover {
@@ -417,7 +476,7 @@ nav a:hover {
     top: 12px;
     left: 12px;
     background: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
     font-size: 0.75rem;
     font-weight: 700;
     padding: 4px 10px;
@@ -448,12 +507,12 @@ nav a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
     padding-top: 12px;
 }
 
 .price {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--dorado);
 }
@@ -472,7 +531,7 @@ nav a:hover {
 
 .add-btn:hover {
     background: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
 }
 
 /* SECCIÓN: VENTAS AL POR MAYOR Y MENOR */
@@ -488,11 +547,12 @@ nav a:hover {
 .wholesale-container {
     max-width: 1000px;
     margin: 0 auto;
-    background: rgba(26, 5, 16, 0.88);
+    background: var(--card-bg);
     border: 1px solid var(--dorado);
     border-radius: 20px;
     padding: 40px;
     box-shadow: var(--sombra);
+    transition: background-color 0.3s;
 }
 
 .wholesale-content h2 {
@@ -520,11 +580,12 @@ nav a:hover {
 }
 
 .benefit-card {
-    background: rgba(59, 10, 34, 0.5);
+    background: var(--vino-principal);
     border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 12px;
     padding: 20px;
     text-align: center;
+    transition: background-color 0.3s;
 }
 
 .benefit-card i {
@@ -567,10 +628,11 @@ nav a:hover {
 .locations-section {
     padding: 80px 8%;
     background: linear-gradient(180deg, var(--vino-principal), var(--vino-oscuro));
+    transition: background 0.3s;
 }
 
 .info-general-box {
-    background: rgba(26, 5, 16, 0.85);
+    background: var(--card-bg);
     border: 1px solid var(--dorado);
     border-radius: 15px;
     padding: 25px 35px;
@@ -579,6 +641,7 @@ nav a:hover {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 15px;
     box-shadow: var(--sombra);
+    transition: background-color 0.3s;
 }
 
 .info-item {
@@ -598,16 +661,17 @@ nav a:hover {
 }
 
 .sede-card {
-    background: rgba(26, 5, 16, 0.85);
+    background: var(--card-bg);
     border: 1px solid var(--dorado);
     border-radius: 15px;
     padding: 30px;
     box-shadow: var(--sombra);
+    transition: background-color 0.3s;
 }
 
 .sede-card h3 {
     color: var(--dorado);
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
@@ -641,21 +705,27 @@ nav a:hover {
 
 .map-link:hover {
     background: var(--dorado);
-    color: var(--vino-oscuro);
+    color: #1a0510;
 }
 
 .social-box {
     text-align: center;
-    background: rgba(59, 10, 34, 0.6);
+    background: var(--card-bg);
     padding: 35px;
     border-radius: 15px;
     border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: var(--sombra);
+    transition: background-color 0.3s;
 }
 
 .social-box h3 {
     color: var(--dorado);
     font-size: 1.6rem;
     margin-bottom: 10px;
+}
+
+.social-box p {
+    color: var(--gris-texto);
 }
 
 .social-icons {
@@ -682,7 +752,7 @@ nav a:hover {
     transform: translateY(-4px);
 }
 
-.wa { background: #25D366; color: #000; }
+.wa { background: #25D366; color: #000 !important; }
 .fb { background: #1877F2; }
 .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 .tt { background: #000000; border: 1px solid #25F4EE; }
@@ -695,12 +765,12 @@ nav a:hover {
     width: 100%;
     max-width: 420px;
     height: 100vh;
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     border-left: 2px solid var(--dorado);
     z-index: 2000;
     display: flex;
     flex-direction: column;
-    transition: right 0.4s ease;
+    transition: right 0.4s ease, background-color 0.3s;
     box-shadow: -10px 0 30px rgba(0,0,0,0.8);
 }
 
@@ -738,7 +808,7 @@ nav a:hover {
 
 .empty-msg {
     text-align: center;
-    color: #ccc;
+    color: var(--gris-texto);
     margin-top: 40px;
 }
 
@@ -746,7 +816,7 @@ nav a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(59, 10, 34, 0.5);
+    background: var(--vino-principal);
     padding: 12px;
     border-radius: 10px;
     margin-bottom: 12px;
@@ -770,7 +840,7 @@ nav a:hover {
 }
 
 .qty-btn {
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     color: var(--dorado);
     border: 1px solid var(--dorado);
     width: 26px;
@@ -797,7 +867,7 @@ nav a:hover {
     padding: 10px;
     border-radius: 8px;
     border: 1px solid var(--dorado);
-    background: var(--vino-oscuro);
+    background: var(--card-bg);
     color: var(--blanco);
     font-family: 'Poppins', sans-serif;
 }
@@ -838,7 +908,7 @@ nav a:hover {
 
 /* FOOTER */
 footer {
-    background: #0f0209;
+    background: var(--vino-oscuro);
     text-align: center;
     padding: 25px;
     border-top: 1px solid rgba(212, 175, 55, 0.2);
@@ -849,11 +919,14 @@ footer {
 footer .disclaimer {
     font-size: 0.8rem;
     margin-top: 5px;
-    color: #d4af37;
+    color: var(--dorado);
 }
 
-@media (max-width: 768px) {
+/* DISEÑO RESPONSIVO (TELÉFONOS Y TABLETS) */
+@media (max-width: 900px) {
     nav ul { display: none; }
-    .about-section { grid-template-columns: 1fr; }
-    .hero h2 { font-size: 2.2rem; }
+    .about-section { grid-template-columns: 1fr; gap: 30px; }
+    .hero h2 { font-size: 2rem; }
+    .hero p { font-size: 0.95rem; }
+    .cart-text { display: none; } /* Oculta la palabra "Carrito" en móviles para ahorrar espacio, dejando el icono y contador */
 }
