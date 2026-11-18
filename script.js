@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const TELEFONO_WHATSAPP = "51933939780";
+    const TELEFONO_WHATSAPP = "51953815602";
 
     // --- MODO OSCURO / CLARO ---
     const themeToggleBtn = document.getElementById("theme-toggle");
@@ -8,21 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (currentTheme === "light") {
         document.body.classList.add("light-mode");
-        themeIcon.classList.replace("fa-moon", "fa-sun");
+        if (themeIcon) themeIcon.className = "fas fa-sun";
     }
 
-    themeToggleBtn.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
-        let theme = "dark";
-        if (document.body.classList.contains("light-mode")) {
-            theme = "light";
-            themeIcon.classList.replace("fa-sun", "fa-moon"); // Opcional rotación de icono
-            themeIcon.className = "fas fa-sun";
-        } else {
-            themeIcon.className = "fas fa-moon";
-        }
-        localStorage.setItem("theme", theme);
-    });
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            let theme = "dark";
+            if (document.body.classList.contains("light-mode")) {
+                theme = "light";
+                if (themeIcon) themeIcon.className = "fas fa-sun";
+            } else {
+                if (themeIcon) themeIcon.className = "fas fa-moon";
+            }
+            localStorage.setItem("theme", theme);
+        });
+    }
 
     const productos = [
         {
@@ -226,13 +227,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.querySelector('.catalog-section').addEventListener('click', (e) => {
-        const btn = e.target.closest('.add-btn');
-        if (btn) {
-            const id = parseInt(btn.getAttribute('data-id'));
-            agregarAlCarrito(id);
-        }
-    });
+    const catalogSection = document.querySelector('.catalog-section');
+    if (catalogSection) {
+        catalogSection.addEventListener('click', (e) => {
+            const btn = e.target.closest('.add-btn');
+            if (btn) {
+                const id = parseInt(btn.getAttribute('data-id'));
+                agregarAlCarrito(id);
+            }
+        });
+    }
 
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -252,12 +256,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const cartModal = document.getElementById('cart-modal');
-    document.getElementById('open-cart-btn').addEventListener('click', () => {
-        cartModal.classList.add('open');
-    });
-    document.getElementById('close-cart-btn').addEventListener('click', () => {
-        cartModal.classList.remove('open');
-    });
+    const openCartBtn = document.getElementById('open-cart-btn');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+
+    if (openCartBtn && cartModal) {
+        openCartBtn.addEventListener('click', () => {
+            cartModal.classList.add('open');
+        });
+    }
+    if (closeCartBtn && cartModal) {
+        closeCartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('open');
+        });
+    }
 
     function agregarAlCarrito(id) {
         const producto = productos.find(p => p.id === id);
@@ -270,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         actualizarCarrito();
-        cartModal.classList.add('open');
+        if (cartModal) cartModal.classList.add('open');
     }
 
     function cambiarCantidad(id, delta) {
@@ -284,14 +295,17 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarrito();
     }
 
-    document.getElementById('cart-items').addEventListener('click', (e) => {
-        const btn = e.target.closest('.qty-btn');
-        if (btn) {
-            const id = parseInt(btn.getAttribute('data-id'));
-            const delta = parseInt(btn.getAttribute('data-delta'));
-            cambiarCantidad(id, delta);
-        }
-    });
+    const cartItemsContainer = document.getElementById('cart-items');
+    if (cartItemsContainer) {
+        cartItemsContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.qty-btn');
+            if (btn) {
+                const id = parseInt(btn.getAttribute('data-id'));
+                const delta = parseInt(btn.getAttribute('data-delta'));
+                cambiarCantidad(id, delta);
+            }
+        });
+    }
 
     function actualizarCarrito() {
         const cartItemsContainer = document.getElementById('cart-items');
@@ -300,6 +314,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let totalItems = 0;
         let totalPrecio = 0;
+
+        if (!cartItemsContainer) return;
 
         if (carrito.length === 0) {
             cartItemsContainer.innerHTML = '<p class="empty-msg">Tu carrito está vacío.</p>';
@@ -325,44 +341,47 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        cartCount.innerText = totalItems;
-        cartTotal.innerText = `S/ ${totalPrecio.toFixed(2)}`;
+        if (cartCount) cartCount.innerText = totalItems;
+        if (cartTotal) cartTotal.innerText = `S/ ${totalPrecio.toFixed(2)}`;
     }
 
-    document.getElementById('checkout-btn').addEventListener('click', () => {
-        if (carrito.length === 0) {
-            alert("Por favor, agrega al menos una bebida a tu carrito antes de realizar el pedido.");
-            return;
-        }
+    // --- WHATSAPP CON FORMATO EXACTO SOLICITADO ---
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (carrito.length === 0) {
+                alert("Por favor, agrega al menos una bebida a tu carrito antes de realizar el pedido.");
+                return;
+            }
 
-        const nombre = document.getElementById('cliente-nombre').value.trim() || "Cliente";
-        const entrega = document.getElementById('cliente-entrega').value;
-        const direccion = document.getElementById('cliente-direccion').value.trim() || "Por coordinar";
+            const nombreInput = document.getElementById('cliente-nombre');
+            const entregaSelect = document.getElementById('cliente-entrega');
+            const direccionInput = document.getElementById('cliente-direccion');
 
-        let mensaje = `* [ NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA ] *\n`;
-        mensaje += `----------------------------------------------------\n`;
-        mensaje += `> Cliente: ${nombre}\n`;
-        mensaje += `> Metodo: ${entrega}\n`;
-        mensaje += `> Destino: ${direccion}\n`;
-        mensaje += `----------------------------------------------------\n`;
-        mensaje += `* DETALLE DE LOS PRODUCTOS: *\n\n`;
+            const nombre = nombreInput ? nombreInput.value.trim() || "Cliente" : "Cliente";
+            const entrega = entregaSelect ? entregaSelect.value : "Recojo en tienda";
+            const direccion = direccionInput ? direccionInput.value.trim() || "Por coordinar" : "Por coordinar";
 
-        let total = 0;
-        carrito.forEach((item, index) => {
-            const subtotal = item.precio * item.cantidad;
-            total += subtotal;
-            mensaje += `${index + 1}. *${item.nombre}*\n`;
-            mensaje += `   - Cantidad: ${item.cantidad} | Subtotal: *S/ ${subtotal.toFixed(2)}*\n\n`;
+            let mensaje = `🍷 *NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA* 🍇\n\n`;
+            mensaje += `👤 *Cliente:* ${nombre}\n`;
+            mensaje += `🚚 *Modalidad:* ${entrega}\n`;
+            mensaje += `📍 *Destino / Dirección:* ${direccion}\n\n`;
+            mensaje += `📋 *DETALLE DEL PEDIDO:*\n`;
+
+            let total = 0;
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                mensaje += `▪️ ${item.cantidad}x ${item.nombre} - S/ ${subtotal.toFixed(2)}\n`;
+            });
+
+            mensaje += `\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n\n`;
+            mensaje += `_Enviado desde la web oficial de Viñedos El Racimo de Uva (Atención 24/7)_`;
+
+            const urlWhatsApp = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
         });
-
-        mensaje += `----------------------------------------------------\n`;
-        mensaje += `* TOTAL A PAGAR: S/ ${total.toFixed(2)} *\n`;
-        mensaje += `----------------------------------------------------\n`;
-        mensaje += `> Gracias por su preferencia. Quedo a la espera de la confirmacion y coordinacion del pago.`;
-
-        const urlWhatsApp = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(urlWhatsApp, '_blank');
-    });
+    }
 
     renderProductos();
 });
