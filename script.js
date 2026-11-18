@@ -1,6 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     const TELEFONO_WHATSAPP = "51953815602";
 
+    // --- MODO OSCURO / CLARO ---
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const currentTheme = localStorage.getItem("theme");
+
+    if (currentTheme === "light") {
+        document.body.classList.add("light-mode");
+        themeIcon.classList.replace("fa-moon", "fa-sun");
+    }
+
+    themeToggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        let theme = "dark";
+        if (document.body.classList.contains("light-mode")) {
+            theme = "light";
+            themeIcon.classList.replace("fa-sun", "fa-moon"); // Opcional rotación de icono
+            themeIcon.className = "fas fa-sun";
+        } else {
+            themeIcon.className = "fas fa-moon";
+        }
+        localStorage.setItem("theme", theme);
+    });
+
     const productos = [
         {
             id: 1,
