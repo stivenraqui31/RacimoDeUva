@@ -316,21 +316,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const entrega = document.getElementById('cliente-entrega').value;
         const direccion = document.getElementById('cliente-direccion').value.trim() || "Por coordinar";
 
-        let mensaje = `🍷 *NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA* 🍇\n\n`;
-        mensaje += `👤 *Cliente:* ${nombre}\n`;
-        mensaje += `🚚 *Modalidad:* ${entrega}\n`;
-        mensaje += `📍 *Destino / Dirección:* ${direccion}\n\n`;
-        mensaje += `📋 *DETALLE DEL PEDIDO:*\n`;
+        let mensaje = `* [ NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA ] *\n`;
+        mensaje += `----------------------------------------------------\n`;
+        mensaje += `> Cliente: ${nombre}\n`;
+        mensaje += `> Metodo: ${entrega}\n`;
+        mensaje += `> Destino: ${direccion}\n`;
+        mensaje += `----------------------------------------------------\n`;
+        mensaje += `* DETALLE DE LOS PRODUCTOS: *\n\n`;
 
         let total = 0;
-        carrito.forEach(item => {
+        carrito.forEach((item, index) => {
             const subtotal = item.precio * item.cantidad;
             total += subtotal;
-            mensaje += `▪️ ${item.cantidad}x ${item.nombre} - S/ ${subtotal.toFixed(2)}\n`;
+            mensaje += `${index + 1}. *${item.nombre}*\n`;
+            mensaje += `   - Cantidad: ${item.cantidad} | Subtotal: *S/ ${subtotal.toFixed(2)}*\n\n`;
         });
 
-        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n`;
-        mensaje += `\n_Enviado desde la web oficial de Viñedos El Racimo de Uva (Atención 24/7)_`;
+        mensaje += `----------------------------------------------------\n`;
+        mensaje += `* TOTAL A PAGAR: S/ ${total.toFixed(2)} *\n`;
+        mensaje += `----------------------------------------------------\n`;
+        mensaje += `> Gracias por su preferencia. Quedo a la espera de la confirmacion y coordinacion del pago.`;
 
         const urlWhatsApp = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
         window.open(urlWhatsApp, '_blank');
