@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const TELEFONO_WHATSAPP = "51953815602";
+    const TELEFONO_WHATSAPP = "51933939780";
 
     // --- MODO OSCURO / CLARO ---
     const themeToggleBtn = document.getElementById("theme-toggle");
