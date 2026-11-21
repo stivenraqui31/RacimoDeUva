@@ -25,6 +25,76 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- MENÚ MÓVIL DESPLEGABLE ---
+    const menuToggleBtn = document.getElementById("menu-toggle-btn");
+    const mobileNavDrawer = document.getElementById("mobile-nav-drawer");
+    const menuIcon = document.getElementById("menu-icon");
+
+    function cerrarMenuMovil() {
+        if (!mobileNavDrawer || !menuToggleBtn) return;
+        mobileNavDrawer.classList.remove("open");
+        menuToggleBtn.setAttribute("aria-expanded", "false");
+        if (menuIcon) menuIcon.className = "fas fa-bars";
+    }
+
+    if (menuToggleBtn && mobileNavDrawer) {
+        menuToggleBtn.addEventListener("click", () => {
+            const isOpen = mobileNavDrawer.classList.toggle("open");
+            menuToggleBtn.setAttribute("aria-expanded", String(isOpen));
+            if (menuIcon) {
+                menuIcon.className = isOpen ? "fas fa-times" : "fas fa-bars";
+            }
+        });
+
+        document.querySelectorAll(".mobile-nav-link").forEach(link => {
+            link.addEventListener("click", cerrarMenuMovil);
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth > 1024) {
+                cerrarMenuMovil();
+            }
+        });
+    }
+
+    // --- MODO NAVIDEÑO (NIEVE SUTIL ACTIVABLE) ---
+    const xmasToggleBtn = document.getElementById("xmas-toggle");
+    const snowContainer = document.getElementById("snow-container");
+    let xmasActive = true;
+
+    function crearNieve() {
+        if (!snowContainer) return;
+        snowContainer.innerHTML = "";
+        if (!xmasActive) return;
+
+        const esMovil = window.innerWidth < 768;
+        const cantidadCopos = esMovil ? 18 : 28;
+
+        for (let i = 0; i < cantidadCopos; i++) {
+            const flake = document.createElement("span");
+            flake.className = "snowflake";
+            flake.innerHTML = "❄";
+            flake.style.left = (Math.random() * 96) + "vw";
+            flake.style.fontSize = (Math.random() * 9 + 10) + "px";
+            flake.style.animationDuration = (Math.random() * 6 + 6) + "s";
+            flake.style.animationDelay = (Math.random() * 5) + "s";
+            flake.style.opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
+            snowContainer.appendChild(flake);
+        }
+    }
+
+    document.body.classList.add("xmas-mode");
+    crearNieve();
+
+    if (xmasToggleBtn) {
+        xmasToggleBtn.addEventListener("click", () => {
+            xmasActive = !xmasActive;
+            xmasToggleBtn.classList.toggle("active", xmasActive);
+            document.body.classList.toggle("xmas-mode", xmasActive);
+            crearNieve();
+        });
+    }
+
     const productos = [
         {
             id: 1,
@@ -214,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                     <div class="product-footer">
                         <span class="price">S/ ${prod.precio.toFixed(2)}</span>
-                        <button class="add-btn" data-id="${prod.id}">
+                        <button type="button" class="add-btn" data-id="${prod.id}">
                             <i class="fas fa-cart-plus"></i> Agregar
                         </button>
                     </div>
@@ -232,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
         catalogSection.addEventListener('click', (e) => {
             const btn = e.target.closest('.add-btn');
             if (btn) {
-                const id = parseInt(btn.getAttribute('data-id'));
+                const id = parseInt(btn.getAttribute('data-id'), 10);
                 agregarAlCarrito(id);
             }
         });
@@ -249,29 +319,41 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.ctrl-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const trackId = btn.getAttribute('data-target');
-            const distance = parseInt(btn.getAttribute('data-dir'));
+            const distance = parseInt(btn.getAttribute('data-dir'), 10);
             const track = document.getElementById(trackId);
             if (track) track.scrollBy({ left: distance, behavior: 'smooth' });
         });
     });
 
     const cartModal = document.getElementById('cart-modal');
+    const cartBackdrop = document.getElementById('cart-backdrop');
     const openCartBtn = document.getElementById('open-cart-btn');
     const closeCartBtn = document.getElementById('close-cart-btn');
 
-    if (openCartBtn && cartModal) {
-        openCartBtn.addEventListener('click', () => {
-            cartModal.classList.add('open');
-        });
+    function abrirCarrito() {
+        cerrarMenuMovil();
+        if (cartModal) cartModal.classList.add('open');
+        if (cartBackdrop) cartBackdrop.classList.add('active');
     }
-    if (closeCartBtn && cartModal) {
-        closeCartBtn.addEventListener('click', () => {
-            cartModal.classList.remove('open');
-        });
+
+    function cerrarCarrito() {
+        if (cartModal) cartModal.classList.remove('open');
+        if (cartBackdrop) cartBackdrop.classList.remove('active');
+    }
+
+    if (openCartBtn) {
+        openCartBtn.addEventListener('click', abrirCarrito);
+    }
+    if (closeCartBtn) {
+        closeCartBtn.addEventListener('click', cerrarCarrito);
+    }
+    if (cartBackdrop) {
+        cartBackdrop.addEventListener('click', cerrarCarrito);
     }
 
     function agregarAlCarrito(id) {
         const producto = productos.find(p => p.id === id);
+        if (!producto) return;
         const itemExistente = carrito.find(item => item.id === id);
 
         if (itemExistente) {
@@ -281,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         actualizarCarrito();
-        if (cartModal) cartModal.classList.add('open');
+        abrirCarrito();
     }
 
     function cambiarCantidad(id, delta) {
@@ -300,8 +382,8 @@ document.addEventListener("DOMContentLoaded", () => {
         cartItemsContainer.addEventListener('click', (e) => {
             const btn = e.target.closest('.qty-btn');
             if (btn) {
-                const id = parseInt(btn.getAttribute('data-id'));
-                const delta = parseInt(btn.getAttribute('data-delta'));
+                const id = parseInt(btn.getAttribute('data-id'), 10);
+                const delta = parseInt(btn.getAttribute('data-delta'), 10);
                 cambiarCantidad(id, delta);
             }
         });
@@ -332,9 +414,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span>S/ ${(item.precio * item.cantidad).toFixed(2)} (S/ ${item.precio.toFixed(2)} c/u)</span>
                         </div>
                         <div class="cart-item-controls">
-                            <button class="qty-btn" data-id="${item.id}" data-delta="-1">-</button>
+                            <button type="button" class="qty-btn" data-id="${item.id}" data-delta="-1">-</button>
                             <span>${item.cantidad}</span>
-                            <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
+                            <button type="button" class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
                         </div>
                     </div>
                 `;
@@ -345,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cartTotal) cartTotal.innerText = `S/ ${totalPrecio.toFixed(2)}`;
     }
 
-    // --- WHATSAPP CON FORMATO EXACTO SOLICITADO ---
+    // --- WHATSAPP CON FORMATO NAVIDEÑO ---
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
@@ -362,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const entrega = entregaSelect ? entregaSelect.value : "Recojo en tienda";
             const direccion = direccionInput ? direccionInput.value.trim() || "Por coordinar" : "Por coordinar";
 
-            let mensaje = `🍷 *NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA* 🍇\n\n`;
+            let mensaje = `🎄🍷 *PEDIDO NAVIDEÑO - VIÑEDOS EL RACIMO DE UVA* 🍇✨\n\n`;
             mensaje += `👤 *Cliente:* ${nombre}\n`;
             mensaje += `🚚 *Modalidad:* ${entrega}\n`;
             mensaje += `📍 *Destino / Dirección:* ${direccion}\n\n`;
