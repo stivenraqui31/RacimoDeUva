@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         window.addEventListener("resize", () => {
-            if (window.innerWidth > 1024) {
+            if (window.innerWidth > 1120) {
                 cerrarMenuMovil();
             }
         });
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const flake = document.createElement("span");
             flake.className = "snowflake";
             flake.innerHTML = "❄";
-            flake.style.left = (Math.random() * 96) + "vw";
+            flake.style.left = (Math.random() * 94) + "vw";
             flake.style.fontSize = (Math.random() * 9 + 10) + "px";
             flake.style.animationDuration = (Math.random() * 6 + 6) + "s";
             flake.style.animationDelay = (Math.random() * 5) + "s";
