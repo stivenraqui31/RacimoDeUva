@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,10 +14,10 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
-    <div class="top-bar">
-        <span><i class="fas fa-clock"></i> ATENCIÓN LAS 24 HORAS - LOS 7 DÍAS DE LA SEMANA</span>
-        <span><i class="fas fa-truck"></i> PEDIDOS Y ENVÍOS SEGUROS A TODO EL PERÚ</span>
+    <!-- BARRA SUPERIOR NAVIDEÑA -->
+    <div class="top-bar top-bar-navidad">
+        <span><i class="fas fa-snowflake"></i> ESPECIAL DE FIESTAS: BRINDA CON EL MEJOR VINO Y PISCO</span>
+        <span><i class="fas fa-gift"></i> PEDIDOS CORPORATIVOS, CANASTAS Y ENVÍOS A TODO EL PERÚ 24/7</span>
     </div>
 
     <!-- ENCABEZADO -->
@@ -29,7 +30,7 @@
             </div>
         </a>
 
-        <nav>
+        <nav class="desktop-nav" aria-label="Navegación principal">
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
@@ -41,32 +42,53 @@
         </nav>
 
         <div class="header-actions">
+            <!-- Botón de Modo Navideño (Nieve) -->
+            <button type="button" class="theme-toggle-btn xmas-toggle-btn active" id="xmas-toggle" title="Activar/Desactivar ambiente navideño" aria-label="Activar o desactivar nieve navideña">
+                <i class="fas fa-snowflake"></i>
+            </button>
+
             <!-- Botón de Modo Oscuro / Claro -->
-            <button class="theme-toggle-btn" id="theme-toggle" title="Cambiar modo oscuro/claro">
+            <button type="button" class="theme-toggle-btn" id="theme-toggle" title="Cambiar modo oscuro/claro" aria-label="Cambiar modo oscuro o claro">
                 <i class="fas fa-moon" id="theme-icon"></i>
             </button>
 
-            <button class="cart-btn" id="open-cart-btn">
+            <button type="button" class="cart-btn" id="open-cart-btn" aria-label="Abrir carrito de compras">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="cart-text">Carrito</span>
                 <span class="cart-count" id="cart-count">0</span>
             </button>
+
+            <!-- Botón Menú Móvil -->
+            <button type="button" class="menu-toggle-btn" id="menu-toggle-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+                <i class="fas fa-bars" id="menu-icon"></i>
+            </button>
         </div>
     </header>
 
+    <!-- MENÚ DESPLEGABLE PARA CELULAR -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+        <a href="#inicio" class="mobile-nav-link"><i class="fas fa-home"></i> Inicio</a>
+        <a href="#nosotros" class="mobile-nav-link"><i class="fas fa-wine-glass"></i> Nosotros</a>
+        <a href="#bebidas" class="mobile-nav-link"><i class="fas fa-wine-bottle"></i> Bebidas</a>
+        <a href="#mayor" class="mobile-nav-link"><i class="fas fa-boxes"></i> Al Por Mayor</a>
+        <a href="#sedes" class="mobile-nav-link"><i class="fas fa-map-marker-alt"></i> Ubicaciones</a>
+        <a href="#contacto" class="mobile-nav-link"><i class="fas fa-share-alt"></i> Contacto</a>
+    </div>
+
     <!-- PORTADA / HERO -->
     <section class="hero" id="inicio">
+        <div class="xmas-ribbon"><i class="fas fa-holly-berry"></i> Edición Especial de Navidad y Año Nuevo</div>
         <img src="logo.racimouva.jpg" alt="Viñedos El Racimo de Uva Logo" class="hero-logo" onerror="this.src='https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=400&q=80'">
         <h2>VIÑEDOS EL RACIMO DE UVA</h2>
-        <p>Hola, :) estamos content@s de poder establecer una relación comercial con ustedes, aquí encontrarás información importante sobre nosotros.</p>
+        <p>Celebra estas fiestas con nuestra cosecha propia de vinos, macerados, piscos y cremas. Preparamos pedidos para regalos, cenas y eventos corporativos.</p>
         
         <div class="hero-badges">
-            <div class="badge"><i class="fas fa-headset"></i> Atención 24/7</div>
+            <div class="badge"><i class="fas fa-gift"></i> Packs y Regalos Navideños</div>
             <div class="badge"><i class="fas fa-map-marked-alt"></i> Envíos a todo el Perú</div>
             <div class="badge"><i class="fas fa-wine-bottle"></i> Venta al por Mayor y Menor</div>
         </div>
 
-        <a href="#bebidas" class="btn-primary">Explorar Catálogo</a>
+        <a href="#bebidas" class="btn-primary">Ver Catálogo Navideño</a>
     </section>
 
     <!-- DESCRIPCIÓN / NOSOTROS -->
@@ -112,13 +134,13 @@
             <div class="category-header">
                 <h3><i class="fas fa-wine-glass-alt"></i> Vinos (Comerciales y Cosecha Propia)</h3>
                 <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="todos">Todos</button>
-                    <button class="filter-btn" data-filter="Cosecha Propia">Cosecha Propia</button>
-                    <button class="filter-btn" data-filter="Comercial">Comerciales</button>
+                    <button type="button" class="filter-btn active" data-filter="todos">Todos</button>
+                    <button type="button" class="filter-btn" data-filter="Cosecha Propia">Cosecha Propia</button>
+                    <button type="button" class="filter-btn" data-filter="Comercial">Comerciales</button>
                 </div>
                 <div class="carousel-controls">
-                    <button class="ctrl-btn" data-target="track-vinos" data-dir="-300"><i class="fas fa-chevron-left"></i></button>
-                    <button class="ctrl-btn" data-target="track-vinos" data-dir="300"><i class="fas fa-chevron-right"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-vinos" data-dir="-300" aria-label="Anterior vino"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-vinos" data-dir="300" aria-label="Siguiente vino"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
             <div class="carousel-track" id="track-vinos"></div>
@@ -129,8 +151,8 @@
             <div class="category-header">
                 <h3><i class="fas fa-lemon"></i> Macerados Artesanales</h3>
                 <div class="carousel-controls">
-                    <button class="ctrl-btn" data-target="track-macerados" data-dir="-300"><i class="fas fa-chevron-left"></i></button>
-                    <button class="ctrl-btn" data-target="track-macerados" data-dir="300"><i class="fas fa-chevron-right"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-macerados" data-dir="-300" aria-label="Anterior macerado"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-macerados" data-dir="300" aria-label="Siguiente macerado"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
             <div class="carousel-track" id="track-macerados"></div>
@@ -141,8 +163,8 @@
             <div class="category-header">
                 <h3><i class="fas fa-glass-whiskey"></i> Piscos Peruanos</h3>
                 <div class="carousel-controls">
-                    <button class="ctrl-btn" data-target="track-piscos" data-dir="-300"><i class="fas fa-chevron-left"></i></button>
-                    <button class="ctrl-btn" data-target="track-piscos" data-dir="300"><i class="fas fa-chevron-right"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-piscos" data-dir="-300" aria-label="Anterior pisco"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-piscos" data-dir="300" aria-label="Siguiente pisco"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
             <div class="carousel-track" id="track-piscos"></div>
@@ -153,8 +175,8 @@
             <div class="category-header">
                 <h3><i class="fas fa-cocktail"></i> Cremas de Pisco</h3>
                 <div class="carousel-controls">
-                    <button class="ctrl-btn" data-target="track-cremas" data-dir="-300"><i class="fas fa-chevron-left"></i></button>
-                    <button class="ctrl-btn" data-target="track-cremas" data-dir="300"><i class="fas fa-chevron-right"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-cremas" data-dir="-300" aria-label="Anterior crema de pisco"><i class="fas fa-chevron-left"></i></button>
+                    <button type="button" class="ctrl-btn" data-target="track-cremas" data-dir="300" aria-label="Siguiente crema de pisco"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
             <div class="carousel-track" id="track-cremas"></div>
@@ -186,7 +208,7 @@
                     </div>
                 </div>
 
-                <a href="https://wa.me/51953815602?text=Hola,%20deseo%20solicitar%20una%20cotización%20al%20POR%20MAYOR%20de%20vinos%20y%20piscos." target="_blank" class="btn-wholesale">
+                <a href="https://wa.me/51953815602?text=Hola,%20deseo%20solicitar%20una%20cotización%20al%20POR%20MAYOR%20de%20vinos%20y%20piscos." target="_blank" rel="noopener noreferrer" class="btn-wholesale">
                     <i class="fab fa-whatsapp"></i> Cotizar al Por Mayor por WhatsApp
                 </a>
             </div>
@@ -213,7 +235,7 @@
                 <p><i class="fas fa-road"></i> <strong>Dirección:</strong> Av. Progreso Psje. "La Campiña" SUNAMPE</p>
                 <p><i class="fas fa-clock"></i> <strong>Horario:</strong> Atención 24/7</p>
                 <p><i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +51 953 815 602</p>
-                <a href="https://maps.google.com/?q=Sunampe+Chincha" target="_blank" class="map-link">
+                <a href="https://maps.google.com/?q=Sunampe+Chincha" target="_blank" rel="noopener noreferrer" class="map-link">
                     <i class="fas fa-directions"></i> Cómo llegar (Google Maps)
                 </a>
             </div>
@@ -223,18 +245,18 @@
                 <p><i class="fas fa-road"></i> <strong>Dirección:</strong> Carr. Panamericana Sur Km. 183.5 (Antes del Peaje)</p>
                 <p><i class="fas fa-clock"></i> <strong>Horario:</strong> Atención 24/7</p>
                 <p><i class="fas fa-phone"></i> <strong>WhatsApp:</strong> +51 953 815 602</p>
-                <a href="https://maps.google.com/?q=Panamericana+Sur+Km+183.5" target="_blank" class="map-link">
+                <a href="https://maps.google.com/?q=Panamericana+Sur+Km+183.5" target="_blank" rel="noopener noreferrer" class="map-link">
                     <i class="fas fa-directions"></i> Cómo llegar (Google Maps)
                 </a>
             </div>
         </div>
 
-        <!-- REDES SOCIALES (NUEVO MODELO TARJETAS PREMIUM) -->
+        <!-- REDES SOCIALES -->
         <div class="social-box" id="contacto">
             <h3>Síguenos en Redes Sociales</h3>
             <p>Conéctate con nosotros en nuestras plataformas oficiales y entérate de nuestras novedades</p>
             <div class="social-grid">
-                <a href="https://wa.me/51953815602" target="_blank" class="social-card wa">
+                <a href="https://wa.me/51953815602" target="_blank" rel="noopener noreferrer" class="social-card wa">
                     <div class="social-icon-circle"><i class="fab fa-whatsapp"></i></div>
                     <div class="social-info">
                         <h4>WhatsApp</h4>
@@ -242,7 +264,7 @@
                     </div>
                 </a>
 
-                <a href="https://facebook.com" target="_blank" class="social-card fb">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-card fb">
                     <div class="social-icon-circle"><i class="fab fa-facebook-f"></i></div>
                     <div class="social-info">
                         <h4>Facebook</h4>
@@ -250,7 +272,7 @@
                     </div>
                 </a>
 
-                <a href="https://instagram.com" target="_blank" class="social-card ig">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-card ig">
                     <div class="social-icon-circle"><i class="fab fa-instagram"></i></div>
                     <div class="social-info">
                         <h4>Instagram</h4>
@@ -258,7 +280,7 @@
                     </div>
                 </a>
 
-                <a href="https://tiktok.com" target="_blank" class="social-card tt">
+                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-card tt">
                     <div class="social-icon-circle"><i class="fab fa-tiktok"></i></div>
                     <div class="social-info">
                         <h4>TikTok</h4>
@@ -269,11 +291,14 @@
         </div>
     </section>
 
+    <!-- FONDO OSCURO DEL CARRITO -->
+    <div class="cart-backdrop" id="cart-backdrop"></div>
+
     <!-- CARRITO LATERAL (MODAL) -->
-    <div class="cart-modal" id="cart-modal">
+    <aside class="cart-modal" id="cart-modal" aria-label="Carrito de compras">
         <div class="cart-header">
             <h3><i class="fas fa-shopping-bag"></i> Tu Pedido</h3>
-            <button class="close-cart" id="close-cart-btn">&times;</button>
+            <button type="button" class="close-cart" id="close-cart-btn" aria-label="Cerrar carrito">&times;</button>
         </div>
 
         <div class="cart-items" id="cart-items">
@@ -296,17 +321,20 @@
                 <span id="cart-total">S/ 0.00</span>
             </div>
 
-            <button class="whatsapp-checkout" id="checkout-btn">
+            <button type="button" class="whatsapp-checkout" id="checkout-btn">
                 <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
             </button>
         </div>
-    </div>
+    </aside>
 
     <!-- PIE DE PÁGINA -->
     <footer>
         <p>&copy; 2026 <strong>VIÑEDOS EL RACIMO DE UVA S.A.C.</strong> | Chincha - Ica - Perú. Todos los derechos reservados.</p>
         <p class="disclaimer">Tomar bebidas alcohólicas en exceso es dañino. Prohibida su venta a menores de 18 años.</p>
     </footer>
+
+    <!-- CONTENEDOR DE NIEVE NAVIDEÑA -->
+    <div id="snow-container" aria-hidden="true"></div>
 
     <!-- Enlace a tu JavaScript -->
     <script src="script.js"></script>
