@@ -25,6 +25,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- MODO NAVIDEÑO (NIEVE SUTIL ACTIVABLE) ---
+    const xmasToggleBtn = document.getElementById("xmas-toggle");
+    const snowContainer = document.getElementById("snow-container");
+    let xmasActive = true;
+
+    function crearNieve() {
+        if (!snowContainer) return;
+        snowContainer.innerHTML = "";
+        if (!xmasActive) return;
+
+        const cantidadCopos = 28;
+        for (let i = 0; i < cantidadCopos; i++) {
+            const flake = document.createElement("span");
+            flake.className = "snowflake";
+            flake.innerHTML = "❄";
+            flake.style.left = Math.random() * 100 + "vw";
+            flake.style.fontSize = (Math.random() * 10 + 10) + "px";
+            flake.style.animationDuration = (Math.random() * 6 + 6) + "s";
+            flake.style.animationDelay = (Math.random() * 5) + "s";
+            flake.style.opacity = (Math.random() * 0.5 + 0.3).toFixed(2);
+            snowContainer.appendChild(flake);
+        }
+    }
+
+    document.body.classList.add("xmas-mode");
+    crearNieve();
+
+    if (xmasToggleBtn) {
+        xmasToggleBtn.addEventListener("click", () => {
+            xmasActive = !xmasActive;
+            xmasToggleBtn.classList.toggle("active", xmasActive);
+            document.body.classList.toggle("xmas-mode", xmasActive);
+            crearNieve();
+        });
+    }
+
     const productos = [
         {
             id: 1,
@@ -345,7 +381,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cartTotal) cartTotal.innerText = `S/ ${totalPrecio.toFixed(2)}`;
     }
 
-    // --- WHATSAPP CON FORMATO EXACTO SOLICITADO ---
+    // --- WHATSAPP CON FORMATO NAVIDEÑO ---
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
@@ -362,7 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const entrega = entregaSelect ? entregaSelect.value : "Recojo en tienda";
             const direccion = direccionInput ? direccionInput.value.trim() || "Por coordinar" : "Por coordinar";
 
-            let mensaje = `🍷 *NUEVO PEDIDO - VIÑEDOS EL RACIMO DE UVA* 🍇\n\n`;
+            let mensaje = `🎄🍷 *PEDIDO NAVIDEÑO - VIÑEDOS EL RACIMO DE UVA* 🍇✨\n\n`;
             mensaje += `👤 *Cliente:* ${nombre}\n`;
             mensaje += `🚚 *Modalidad:* ${entrega}\n`;
             mensaje += `📍 *Destino / Dirección:* ${direccion}\n\n`;
